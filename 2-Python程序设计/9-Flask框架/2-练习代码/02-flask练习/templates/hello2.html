@@ -1,0 +1,10 @@
+{# 继承layout.html #}
+{% extends 'layout.html' %}
+
+{% block bbb %}
+    {% if name == None %}
+        <h1> hello world! </h1>
+    {% else %}
+        <h1> hello {{ name }}! </h1>
+    {% endif %}
+{% endblock %}

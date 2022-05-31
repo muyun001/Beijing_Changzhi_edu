@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+		ul li {
+			list-style: none;
+		}
+		</style>
+	</head>
+	<body>
+		
+		{% for i in news_list %}
+			<li><a href="/news_list/detail_{{ i }}.html">新闻{{ i }}</a></li>
+		{% endfor %}
+		<div>user_list为{{ news_list }}</div>
+		<div>直接使用索引取得news_list中的值：
+		news_list[2] ---{{ news_list[2] }}</div>
+		{% for i in users %}
+			{{ i }}
+		{% endfor %}
+		
+		<table border="1">
+			<tr>
+				<th>编号</th>
+				<th>姓名</th>
+				<th>年龄</th>
+				<th>查看爱好</th>
+			</tr>
+			{%  for user in user_info %}
+			<tr>
+				<td>{{ user.get('id', '') }}</td>
+				<td>{{ user.get('name', '') }}</td>
+				<td>{{ user['age'] }}</td>
+				<td><a target="_blank" href="/user/detail.html?uid={{ user['id'] }}">查看--/user/detail.html?uid={{ user['id'] }}</a></td>
+			</tr>
+			{% endfor %}
+		</table>
+		
+		<ul>
+			<li><a href="/news_list/detail_1.html">新闻1</a></li>
+			<li><a href="/news_list/detail_2.html">新闻2</a></li>
+			<li><a href="/news_list/detail_3.html">新闻3</a></li>
+			<li><a href="/news_list/detail_4.html">新闻4</a></li>
+			<li><a href="/news_list/detail_5.html">新闻5</a></li>
+			<li><a href="/news_list/detail_6.html">新闻6</a></li>
+			<li><a href="/news_list/detail_7.html">新闻7</a></li>
+		---------</ul>
+		
+	</body>
+</html>

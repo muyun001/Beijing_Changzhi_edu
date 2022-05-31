@@ -1,0 +1,6 @@
+f = open('not_called_students.txt',"w",encoding="utf-8")
+print(f.tell())
+f.write("你好\n")
+f.flush()
+print(f.tell())
+f.close()

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>用户列表</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <th>编号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>查看爱好</th>
+    </tr>
+    <!---- 循环展示学生信息----->
+    {% for user in user_info %}
+        <tr>
+            <td>{{ user.get('id', '') }}</td>
+            <td>{{ user.get('name', '') }}</td>
+            <td>{{ user['age'] }}</td>
+            <td>
+                <a target="_blank" href="/user/detail.html?uid={{ user['id'] }}">
+                    查看学生详细信息
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+</body>

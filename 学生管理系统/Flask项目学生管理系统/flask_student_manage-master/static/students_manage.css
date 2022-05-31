@@ -1,0 +1,12 @@
+.clearfix {
+   content:"";
+    display: block;
+    clear: both;
+    visibility: hidden;
+}
+/*.table_option{*/
+    /*float: right;*/
+/*}*/
+.student-options-btn{
+    padding:200px;
+}

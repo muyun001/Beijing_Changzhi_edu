@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>大数据2班网站首页</title>
+    <style>
+        .login_btn{
+			position: fixed;
+			top: 3px;
+			right:10px;
+			width: 40px;
+			height: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>大数据2班网站首页</h1>
+<div class="login_btn">{%if not request.args.username %}<a href="/login/">登录</a>{% else %}{{ request.args.username }}{% endif %}</div>
+</body>
+</html>

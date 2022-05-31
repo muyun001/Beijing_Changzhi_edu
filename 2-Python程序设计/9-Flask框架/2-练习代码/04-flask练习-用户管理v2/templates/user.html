@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户系统</title>
+    <style>
+        table, td, th {
+            border: 1px solid green;
+        }
+
+        th {
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<h1>欢迎来到用户系统</h1>
+
+<div>
+    <table border="1">
+    <tr>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>性别</th>
+    </tr>
+
+    {% for s in students %}
+
+        <tr>
+            <td>{{ s.get("name") }}</td>
+            <td>{{ s.get("age") }}</td>
+            <td>{{ s.get("gender") }}</td>
+        </tr>
+
+    {% endfor %}
+</table>
+</div>
+
+
+
+</body>
+</html>

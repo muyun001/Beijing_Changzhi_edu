@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加学生</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script>
+        window.onload = function () {
+            var LscoreText = document.getElementById("score_text");
+            var IsocreRange = document.getElementById("score");
+            IsocreRange.onchange = function () {
+                LscoreText.innerText = this.value;
+                {#                LscoreText.value = this.value;#}
+            };
+{#使用js对提交数据前进行数据检验操作#}
+            var Btnsubmit = document.getElementById("submit_btn");
+            Btnsubmit.onclick = function (event) {
+{#                event.preventDefault();#}
+                var studentInfo = {};
+                var Iname = document.getElementById("name");
+                var Iage = document.getElementById("age");
+                if(Iname.value.length === 0){
+                    alert("姓名不能为空");
+                    return false;
+                }
+
+{#                年龄必须为正数#}
+                var regPos = /^\d+(\.\d+)?$/;
+                console.log(Iage.value);
+                if(Iage.value.length === 0){
+                    alert("年龄不能为空");
+                    return false;
+                }else if(!regPos.test(Iage.value)){
+                    alert("年龄不合法");
+                    return false;
+                }
+
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <h2>添加学生</h2>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <form action="" method="post">
+                <div class="form-group row">
+                    <label for="name" class="col-sm-1 col-form-label">姓名：</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="name" name="name">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="age" class="col-sm-1 col-form-label">年龄：</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="age" name="age">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label  class="col-sm-1 col-form-label">性别：</label>
+                    <div class="col-sm-2">
+                        <div class="row">
+                            <div class="form-check col-sm-2">
+                                <input class="form-check-input" type="radio" name="sex" id="male" value="male" checked>
+                                <label class="form-check-label" for="male">
+                                    男
+                                </label>
+                            </div>
+                            <div class="form-check col-sm-2">
+                                <input class="form-check-input" type="radio" name="sex" id="female" value="female">
+                                <label class="form-check-label" for="female">
+                                    女
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="score" class="col-sm-1 col-form-label">分数：</label>
+                    <div class="col-sm-2">
+                        <input type="range" class="form-control-range" id="score" name="score" max="100" min="0"  value="0">
+                    </div>
+                    <div class="col-sm-2" >
+                        <span id="score_text">0</span>分
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-1 col-sm-offset-1">
+                        <input class="btn btn-primary" type="submit" value="提交" id="submit_btn">
+                    </div>
+                    <div class="col-sm-1">
+                        <a  role="button" class="btn btn-default" href="./students_manage">取消</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

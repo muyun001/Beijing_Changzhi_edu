@@ -1,0 +1,28 @@
+body,html,ul,li,form,div{
+	margin:0px;
+	padding: 0px;
+}
+ul li{
+	list-style: none;
+}
+.main_login{
+		width: 240px;
+		height: 140px;
+		background-color: #C5C1AA;
+		border-radius: 10px;
+		position: absolute;
+		top:50%;
+		left:50%;
+		margin-top: -80px;
+		margin-left:-120px;
+}
+ul li{
+	margin-bottom:6px;
+	text-align: center;
+}
+.error{
+	font-size: 8px;
+	color: red;
+	display: block;
+	text-align: center;
+}

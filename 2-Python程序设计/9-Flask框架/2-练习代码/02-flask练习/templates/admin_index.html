@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台首页</title>
+</head>
+<body>
+{# 判断'user'是否在session中，存在则显示session中保存的用户信息 #}
+<h1>
+    欢迎
+    {% if 'user' in session %}
+        {{ session['user'] }}
+    {% endif %}
+    <a href="/logout">退出</a>
+</h1>
+</body>
+</html>

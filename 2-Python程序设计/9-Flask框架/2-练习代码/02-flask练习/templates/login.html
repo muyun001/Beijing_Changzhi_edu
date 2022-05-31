@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!--引入公共样式文件style.css和登录样式login.css-->
+{#    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">#}
+{#    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='login.css') }}">#}
+    <title>登录页面</title>
+</head>
+<body>
+<div class="main">
+    <!-- action为提交地址，method为提交方式 -->
+    <form action="/login/" method="post">
+        <ul>
+            <h1>欢迎登录</h1>
+            <li>
+                <label>账 号：<input type="text" autocomplete="off" name="user_name" required></label>
+            </li>
+            <li>
+                <label>密 码：<input type="password" name="pwd" required></label>
+            </li>
+            <button>登录</button>
+
+            <!-- 用户登录失败时 提示错误信息-->
+            {% if error %}
+                <span style="color: red">
+                    {{ error }}
+                </span>
+            {% endif %}
+        </ul>
+    </form>
+</div>
+</body>

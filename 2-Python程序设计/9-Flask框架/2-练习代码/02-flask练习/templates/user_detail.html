@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>联想班学生-{{ res['name'] }}爱好页面</title>
+</head>
+<body>
+    <h1>"{{ res['name'] }}"学生的爱好</h1>
+    <p>
+        <h3>学生:{{ res['name'] }} ,年龄:{{ res.get('age') }}</h3>
+        <span style="color: red;">
+            爱好
+        </span>:{{ res.get('other') }}
+    </p>
+</body>
+</html>
