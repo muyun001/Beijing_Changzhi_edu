@@ -1,14 +1,14 @@
 import traceback
 
-import utils
+from utils import date_utils, excel_utils, file_utils, setting_utils, others
 
 # 读取配置信息
-IS_OPEN_VOICE, READ_FOLDER, SAVE_FOLDER, KQ_ABNORMAL = utils.read_settings()
+IS_OPEN_VOICE, READ_FOLDER, SAVE_FOLDER, KQ_ABNORMAL = setting_utils.read_settings()
 
 
 def all_situation():
     """考勤异常的所有情形"""
-    return utils.str_to_dict(KQ_ABNORMAL)
+    return others.str_to_dict(KQ_ABNORMAL)
 
 
 def kaoqin(students, is_evening_study=False):
@@ -19,7 +19,7 @@ def kaoqin(students, is_evening_study=False):
         raise Exception("您需要考勤的名单为空，请您验证excel文件。")
 
     kaoqin, shuoming = [], []  # 考勤、说明
-    engine = utils.voice_read()  # 语音的播报引擎
+    engine = others.voice_read()  # 语音的播报引擎
     sits = all_situation()  # 所有考勤异常的情形
 
     # 如果是晚自习，就加入"走读"选项
@@ -33,7 +33,7 @@ def kaoqin(students, is_evening_study=False):
             engine.say(name)
             engine.runAndWait()
 
-        input_num = input(f"{name}：【{utils.dict_to_str(sits)}】，考勤正常请直接回车：")
+        input_num = input(f"{name}：【{others.dict_to_str(sits)}】，考勤正常请直接回车：")
 
         # 考勤正常
         if not input_num:
@@ -43,7 +43,7 @@ def kaoqin(students, is_evening_study=False):
 
         # 如果输错的话（不是数字），再提供一次输入的机会
         if not input_num.isdigit():
-            input_num = input(f"{name}：【{utils.dict_to_str(sits)}】，请您【输入数字】，如果考勤正常请【直接回车】：")
+            input_num = input(f"{name}：【{others.dict_to_str(sits)}】，请您【输入数字】，如果考勤正常请【直接回车】：")
 
         # 考勤异常
         kaoqin.append("考勤异常")
@@ -87,13 +87,13 @@ def choose_file(files):
 
 
 def main():
-    files = utils.get_files(READ_FOLDER)  # 获取所有考勤名单
+    files = file_utils.get_files(READ_FOLDER)  # 获取所有考勤名单
     read_file = choose_file(files)
     # print("您现在的考勤名单是：", read_file)
     lesson_num = input("您现在是第几节课？（请直接写【数字】，若是晨读请写【-1】，晚自习请写【-2】）：")
 
     # 获取考勤数据
-    data = utils.read_excel(rf"{READ_FOLDER}/{read_file}")
+    data = excel_utils.read_excel_pandas(rf"{READ_FOLDER}/{read_file}")
     # 如果是晚自习，就加入"走读"选项
     if lesson_num == "-2":
         data["考勤"], data["说明"] = kaoqin(data["名单"], True)
@@ -101,8 +101,8 @@ def main():
         data["考勤"], data["说明"] = kaoqin(data["名单"])
 
     # 拼接文件名
-    year, month, day = utils.get_date()
-    _path = f"{SAVE_FOLDER}/{year}年{month}月{day}日{utils.key_info(read_file)}"
+    year, month, day = date_utils.get_date()
+    _path = f"{SAVE_FOLDER}/{year}年{month}月{day}日{others.key_info(read_file)}"
     if lesson_num == "-1":
         path = _path + "晨读考勤表.xlsx"
     elif lesson_num == "-2":
@@ -111,7 +111,7 @@ def main():
         path = _path + f"第{lesson_num}节课考勤表.xlsx"
 
     # 保存数据
-    utils.save_excel(data, path)
+    excel_utils.save_excel_pandas(data, path)
 
 
 if __name__ == '__main__':
