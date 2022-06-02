@@ -27,8 +27,8 @@ def kaoqin():
     return render_template('kaoqin.html', courses=courses, cs_info=cs_info[course], kaoqin=service.all_situation())
 
 
-@app.route('/submit_kq/', methods=['GET', "POST"])
-def submit_kq():
+@app.route('/submit_kq/<course>', methods=['GET', "POST"])
+def submit_kq(course):
     if request.method == "POST":
         return request.form
     return "get请求"
