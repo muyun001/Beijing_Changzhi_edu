@@ -3,8 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>考勤系统</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/折叠菜单.css">
 </head>
 <body>
+<h1> 欢迎来到考勤系统 </h1>
+<ul>
+    {% for course in data.keys() %}
+        <li><a href="#home">{{ course }}</a></li>
+    {% endfor %}
+</ul>
+
+<div style="margin-left:20%;padding:1px 16px;height:1000px;">
+    <form action="http://127.0.0.1:5000/submit_kq/" method="post">
+        <table border="1">
+            <tr>
+                <th>班级</th>
+                <th>姓名</th>
+                <th>考勤</th>
+            </tr>
+            {% for course in data.keys() %}
+                {% for class, student in data.get(course).items() %}
+                    {% for s in student %}
+                        <tr>
+                            <td>{{ class }}</td>
+                            <td>{{ s }}</td>
+                            <td>
+                                <select name="kq-{{ class }}-{{ s }}">
+                                    <option value="考勤正常">考勤正常</option>
+                                    {#   考勤异常的情况   #}
+                                    {% for y in kq_ab.values() %}
+                                        <option value="{{ y }}">{{ y }}</option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        </table>
+        <br>
+        <button type="submit">提 交</button>
+        {#        <a type="submit" href="/submit_kq/" methods="post">提 交</a>#}
+    </form>
+</div>
 
 </body>
 </html>

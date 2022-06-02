@@ -1,5 +1,11 @@
 import pyttsx3
 import json
+try:
+    from utils import setting_utils
+except ModuleNotFoundError:
+    import setting_utils
+
+set = setting_utils.read_settings()
 
 
 def voice_read():
@@ -7,6 +13,11 @@ def voice_read():
     engine.setProperty('rate', 150)  # 设置语速
     engine.setProperty('volume', 2.0)  # 设置音量
     return engine
+
+
+def all_situation():
+    """考勤异常的所有情形"""
+    return str_to_dict(set['kq_abnormal'])
 
 
 def dict_to_str(dic):
