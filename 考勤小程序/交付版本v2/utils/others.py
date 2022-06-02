@@ -1,5 +1,6 @@
 import pyttsx3
 import json
+
 try:
     from utils import setting_utils
 except ModuleNotFoundError:
@@ -58,6 +59,13 @@ def key_info(s):
         .replace("平", "") \
         .replace("职", "") \
         .replace("北京", "")
+
+
+def is_excel(file):
+    """ 判断是不是excel文件 """
+    if "~" in file or "DS_Store" in file:
+        return False
+    return True
 
 
 if __name__ == '__main__':
