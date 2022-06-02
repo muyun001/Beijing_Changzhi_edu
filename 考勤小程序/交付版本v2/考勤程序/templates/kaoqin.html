@@ -21,7 +21,7 @@
                 <th>姓名</th>
                 <th>考勤</th>
             </tr>
-            {% for class, student in data.items() %}
+            {% for class, student in cs_info.items() %}
                 {% for s in student %}
                     <tr>
                         <td>{{ class }}</td>
@@ -30,7 +30,7 @@
                             <select name="kq-{{ class }}-{{ s }}">
                                 <option value="考勤正常">考勤正常</option>
                                 {#   考勤异常的情况   #}
-                                {% for y in kq_ab.values() %}
+                                {% for y in kaoqin.values() %}
                                     <option value="{{ y }}">{{ y }}</option>
                                 {% endfor %}
                             </select>

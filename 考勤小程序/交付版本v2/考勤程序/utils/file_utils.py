@@ -18,5 +18,5 @@ def copy_file(source_file, to_file):
 
 
 if __name__ == '__main__':
-    path = "../1-学生名单表"
+    path = "../../1-学生名单表"
     print(get_files(path))

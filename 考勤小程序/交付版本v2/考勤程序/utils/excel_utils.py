@@ -1,15 +1,6 @@
-import shutil
-
-import numpy as np
 from openpyxl import load_workbook
-from openpyxl.comments import Comment
 import traceback
 import pandas as pd
-import pyttsx3
-import datetime
-import json
-import os
-import re
 
 
 def read_excel_pandas(file_path):
@@ -92,7 +83,7 @@ def save_excel_openpyxl(data, save_path):
 
 
 if __name__ == '__main__':
-    file = "../1-学生名单表/学生名单.xlsx"
+    file = "../../1-学生名单表/学生名单.xlsx"
     # print(get_excel_sheets(file))
     # wb = load_workbook(filename=file)
     # read_sheet(wb, '语文')

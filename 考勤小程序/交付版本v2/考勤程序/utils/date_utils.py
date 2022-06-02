@@ -1,14 +1,5 @@
-import shutil
-
-from openpyxl import load_workbook
-from openpyxl.comments import Comment
-import traceback
-import pandas as pd
-import pyttsx3
 import datetime
-import json
-import os
-import re
+
 
 def get_date():
     """获取当前的年月日"""

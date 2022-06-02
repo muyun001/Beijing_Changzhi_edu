@@ -32,7 +32,5 @@ def read_settings():
     }
 
 
-
-
 if __name__ == '__main__':
     print(read_settings())

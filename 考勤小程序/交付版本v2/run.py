@@ -1,5 +1,4 @@
-from server import server
-import 考勤程序 as kaoqin
+import 考勤服务 as server
 
 if __name__ == '__main__':
     server.app.run(debug=True)

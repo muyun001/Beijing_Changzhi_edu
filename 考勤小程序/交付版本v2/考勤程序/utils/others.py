@@ -1,10 +1,8 @@
+from utils import setting_utils
+import os.path
 import pyttsx3
 import json
 
-try:
-    from utils import setting_utils
-except ModuleNotFoundError:
-    import setting_utils
 
 set = setting_utils.read_settings()
 
@@ -14,11 +12,6 @@ def voice_read():
     engine.setProperty('rate', 150)  # 设置语速
     engine.setProperty('volume', 2.0)  # 设置音量
     return engine
-
-
-def all_situation():
-    """考勤异常的所有情形"""
-    return str_to_dict(set['kq_abnormal'])
 
 
 def dict_to_str(dic):
@@ -39,7 +32,7 @@ def str_to_dict(s):
     """
     sit_dict = {}
     for i in s.strip("\n").split('\n'):
-        if not i.strip():
+        if not i or not i.strip():
             continue
         j = i.split('、')
         sit_dict[j[0]] = j[1]
@@ -66,6 +59,11 @@ def is_excel(file):
     if "~" in file or "DS_Store" in file:
         return False
     return True
+
+
+def get_abspath(path):
+    """ 获取绝对路径 """
+    return os.path.abspath(path)
 
 
 if __name__ == '__main__':
