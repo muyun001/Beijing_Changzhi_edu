@@ -24,11 +24,19 @@ def kaoqin():
     course = request.args.get("course")  # get请求传递过来的课程
     if not course:
         course = courses[0]
-    return render_template('kaoqin.html', courses=courses, cs_info=cs_info[course], kaoqin=service.all_situation())
+
+    data = {
+        "courses": courses,  # 所有课程
+        "course": course,  # 当前请求对课程
+        "cs_info": cs_info[course],  # 班级和学生信息
+        "kaoqin": service.all_situation()  # 考勤的所有情况
+    }
+    return render_template('kaoqin.html', data=data)
 
 
-@app.route('/submit_kq/<course>', methods=['GET', "POST"])
+@app.route('/submit_kq/<course>/', methods=['GET', "POST"])
 def submit_kq(course):
     if request.method == "POST":
+        # todo
         return request.form
     return "get请求"

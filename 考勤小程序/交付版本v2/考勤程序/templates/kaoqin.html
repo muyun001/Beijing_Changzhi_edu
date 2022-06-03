@@ -7,43 +7,42 @@
 </head>
 <body>
 <h1> 欢迎来到考勤系统 </h1>
-{% for course in courses %}
-    <ul>
+<ul>
+    {% for course in data["courses"] %}
         <li><a href="/kaoqin?course={{ course }}">{{ course }}</a></li>
-    </ul>
+    {% endfor %}
+</ul>
 
-    <div style="margin-left:20%;padding:1px 16px;height:1000px;">
-        <form action="http://127.0.0.1:5000/submit_kq/{{ course }}/" method="post">
-            <table border="1">
-                <tr>
-                    <th>班级</th>
-                    <th>姓名</th>
-                    <th>考勤</th>
-                </tr>
-                {% for class, student in cs_info.items() %}
-                    {% for s in student %}
-                        <tr>
-                            <td>{{ class }}</td>
-                            <td>{{ s }}</td>
-                            <td>
-                                <select name="kq-{{ class }}-{{ s }}">
-                                    <option value="考勤正常">考勤正常</option>
-                                    {#   考勤异常的情况   #}
-                                    {% for y in kaoqin.values() %}
-                                        <option value="{{ y }}">{{ y }}</option>
-                                    {% endfor %}
-                                </select>
-                            </td>
-                        </tr>
-                    {% endfor %}
+<div style="margin-left:20%;padding:1px 16px;height:1000px;">
+    <form action="/submit_kq/{{ data["course"] }}/" method="post">
+        <table border="1">
+            <tr>
+                <th>班级</th>
+                <th>姓名</th>
+                <th>考勤</th>
+            </tr>
+            {% for class, student in data["cs_info"].items() %}
+                {% for s in student %}
+                    <tr>
+                        <td>{{ class }}</td>
+                        <td>{{ s }}</td>
+                        <td>
+                            <select name="kq-{{ class }}-{{ s }}">
+                                <option value="考勤正常">考勤正常</option>
+                                {#   考勤异常的情况   #}
+                                {% for y in data["kaoqin"].values() %}
+                                    <option value="{{ y }}">{{ y }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
                 {% endfor %}
-            </table>
-            <br>
-            <button type="submit">提 交</button>
-            {#        <a type="submit" href="/submit_kq/" methods="post">提 交</a>#}
-        </form>
-    </div>
-{% endfor %}
+            {% endfor %}
+        </table>
+        <br>
+        <button type="submit">提 交</button>
+    </form>
+</div>
 
 </body>
 </html>
