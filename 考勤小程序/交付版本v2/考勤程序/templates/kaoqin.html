@@ -38,18 +38,19 @@
         req.open("GET", "http://127.0.0.1:5000/get_cls_students/" + cls + "/");  // 2 初始化
         req.send();  // 3 发送
         req.onreadystatechange = function () {  // 4 时间绑定
-            res = JSON.parse(req.response)  // 将字符串类型转为json类型
-            students = res.students
-            //获取标签名字为tbody的第一个标签，并将其赋值给tbody
-            var tbody = document.getElementsByTagName("tbody")[0];
-            for (i = 0; i < students.length; i++) {
-                var newTr = tbody.firstElementChild.cloneNode(true); // 产生一个tr
-                {#newTr.style.display = "";#}
-                newTr.removeAttribute("style");
-                newTr.children[0].innerHTML = cls;  // 第一个表格中填班级
-                newTr.children[1].innerHTML = students[i];  // 第二个表格中填学生姓名
-                newTr.children[2].children[0].children[0].setAttribute("name", `kq-${cls}-${students[i]}`)  // 设置select标签的name属性
-                tbody.appendChild(newTr);
+            if (req.readyState === 4 && this.status === 200) {
+                res = JSON.parse(req.response)  // 将字符串类型转为json类型
+                students = res.students
+                //获取标签名字为tbody的第一个标签，并将其赋值给tbody
+                var tbody = document.getElementsByTagName("tbody")[0];
+                for (i = 0; i < students.length; i++) {
+                    var newTr = tbody.firstElementChild.cloneNode(true); // 产生一个tr
+                    newTr.removeAttribute("style");
+                    newTr.children[0].innerHTML = cls;  // 第一个表格中填班级
+                    newTr.children[1].innerHTML = students[i];  // 第二个表格中填学生姓名
+                    newTr.children[2].children[0].children[0].setAttribute("name", `kq-${cls}-${students[i]}`)  // 设置select标签的name属性
+                    tbody.appendChild(newTr);
+                }
             }
         }
     }
