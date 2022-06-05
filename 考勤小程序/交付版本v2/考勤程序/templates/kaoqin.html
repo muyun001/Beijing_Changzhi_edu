@@ -7,10 +7,6 @@
     {#    <script src="../static/js/kaoqin.js"></script>#}
     <link rel="stylesheet" type="text/css" href="../static/css/考勤页面.css">
     <style>
-        .none {
-            display: none;
-        }
-
         .c_checkbox {
             display: inline-block;
         }
@@ -60,8 +56,24 @@
 
     // 移除学生
     function remove_students(cls) {
+        var table_obj = document.getElementById("table");
+        var row = table_obj.rows.length;
+        for (var i = 1; i < row; i++) {
+            var trow = table_obj.rows[i];
+            var cells = trow.cells;
+            var table_cls = cells[0].firstChild.nodeValue;
+            var table_student = cells[1].firstChild.nodeValue;
+            if (cls === table_cls) {
+                table_obj.deleteRow(trow.rowIndex)  // 移除行
+            }
+        }
+    }
+
+    // 获取表中数据
+    function get_table_data(cls) {
 
     }
+
 </script>
 
 <div style="margin-left:20%;padding:1px 16px;height:1000px;">
@@ -77,8 +89,8 @@
         </div>
 
         {# 考勤表 #}
-        <div id="table" style="display: block">
-            <table border="1" class="table">
+        <div style="display: block">
+            <table border="1" id="table">
                 {# 表头 #}
                 <thead>
                 <tr>
