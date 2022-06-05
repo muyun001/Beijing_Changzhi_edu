@@ -3,42 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <title>考勤系统</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/折叠菜单.css">
+    <script src="../static/js/jquery.min.js"></script>
+    {#    <script src="../static/js/kaoqin.js"></script>#}
+    <link rel="stylesheet" type="text/css" href="../static/css/考勤页面.css">
+    <style>
+        .none {
+            display: none;
+        }
+
+        .c_checkbox {
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
 <h1> 欢迎来到考勤系统 </h1>
-<ul>
-    {% for course in data["courses"] %}
-        <li><a href="/kaoqin?course={{ course }}">{{ course }}</a></li>
-    {% endfor %}
-</ul>
+<div id="course">
+    <ul>
+        {% for course in data["courses"] %}
+            <li><a href="/kaoqin?course={{ course }}">{{ course }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<script>
+    function checkboxOnclick(checkbox, cls) {
+        "use strict";
+        if (checkbox.checked === true) {
+            show_students(cls)
+        } else {
+            remove_students(cls)
+        }
+    }
+
+    // 显示学生
+    function show_students(cls) {
+        const req = new XMLHttpRequest();  // 1 创建对象
+        req.open("GET", "http://127.0.0.1:5000/get_cls_students/" + cls + "/");  // 2 初始化
+        req.send();  // 3 发送
+        req.onreadystatechange = function () {  // 4 时间绑定
+            res = JSON.parse(req.response)  // 将字符串类型转为json类型
+            students = res.students
+            //获取标签名字为tbody的第一个标签，并将其赋值给tbody
+            var tbody = document.getElementsByTagName("tbody")[0];
+            for (i = 0; i < students.length; i++) {
+                var newTr = tbody.firstElementChild.cloneNode(true); // 产生一个tr
+                {#newTr.style.display = "";#}
+                newTr.removeAttribute("style");
+                newTr.children[0].innerHTML = cls;  // 第一个表格中填班级
+                newTr.children[1].innerHTML = students[i];  // 第二个表格中填学生姓名
+                newTr.children[2].children[0].children[0].setAttribute("name", `kq-${cls}-${students[i]}`)  // 设置select标签的name属性
+                tbody.appendChild(newTr);
+            }
+        }
+    }
+
+    // 移除学生
+    function remove_students(cls) {
+
+    }
+</script>
 
 <div style="margin-left:20%;padding:1px 16px;height:1000px;">
     <form action="/submit_kq/{{ data["course"] }}/" method="post">
-        <table border="1">
-            <tr>
-                <th>班级</th>
-                <th>姓名</th>
-                <th>考勤</th>
-            </tr>
-            {% for class, student in data["cs_info"].items() %}
-                {% for s in student %}
-                    <tr>
-                        <td>{{ class }}</td>
-                        <td>{{ s }}</td>
-                        <td>
-                            <select name="kq-{{ class }}-{{ s }}">
+        {#  班级复选框  #}
+        <div id="class_choice">
+            请选择班级：
+            {% for cls in data["classes"] %}
+                <input type="checkbox" class="c_checkbox" name="class" id="{{ cls }}" value="{{ cls }}"
+                       onclick="checkboxOnclick(this, '{{ cls }}')">
+                <label for="{{ cls }}">{{ cls }}</label>
+            {% endfor %}<br><br>
+        </div>
+
+        {# 考勤表 #}
+        <div id="table" style="display: block">
+            <table border="1" class="table">
+                {# 表头 #}
+                <thead>
+                <tr>
+                    <th style="width: 4cm">班级</th>
+                    <th style="width: 4cm">姓名</th>
+                    <th style="width: 4cm">考勤</th>
+                </tr>
+                </thead>
+                <tbody id="tbody">
+                <tr style="display: none">
+                    <td>1班</td>
+                    <td>崔昊元</td>
+                    <td>
+                        <label>
+                            <select>
                                 <option value="考勤正常">考勤正常</option>
                                 {#   考勤异常的情况   #}
                                 {% for y in data["kaoqin"].values() %}
                                     <option value="{{ y }}">{{ y }}</option>
                                 {% endfor %}
                             </select>
-                        </td>
-                    </tr>
-                {% endfor %}
-            {% endfor %}
-        </table>
+                        </label>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
         <br>
         <button type="submit">提 交</button>
     </form>
