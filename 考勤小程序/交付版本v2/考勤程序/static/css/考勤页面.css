@@ -38,6 +38,6 @@ table.table th {
     text-align: center;
 }
 
-.none {
-    display: none;
+.c_checkbox {
+    display: inline-block;
 }
