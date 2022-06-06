@@ -14,7 +14,7 @@ def read_excel_pandas(file_path):
 
 
 def read_excel_cs(file_path):
-    """ 获取班级和学生名单 """
+    """ 获取科目、班级和学生名单 """
     sheets = get_excel_sheets(file_path)
     course_info = {}  # 课程的数据（包括班级、学生名单）
     for s in sheets:

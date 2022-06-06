@@ -21,7 +21,7 @@ def get_read_file():
 
 
 def read_cs():
-    """ 读取班级和学生数据 """
+    """ 读取科目、班级和学生数据 """
     path = get_read_file()
     if not path:
         return
