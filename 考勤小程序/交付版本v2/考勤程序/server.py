@@ -1,15 +1,9 @@
-import traceback
-import requests
 from flask import Flask, redirect, request, render_template, url_for
 import service
-from utils import setting_utils
 
 app = Flask(__name__)
 # 解决flask接口中文数据编码问题
 app.config['JSON_AS_ASCII'] = False
-
-# 读取配置信息
-settings = setting_utils.read_settings()
 
 
 @app.route('/')
@@ -52,6 +46,7 @@ def get_cls_students(cls):
             return data
     return data
 
+
 @app.route('/kaoqin/')
 def kaoqin():
     """ 科目的考勤 """
@@ -73,6 +68,10 @@ def kaoqin():
 @app.route('/submit_kq/<course>/', methods=['GET', "POST"])
 def submit_kq(course):
     if request.method == "POST":
-        # todo
-        return request.form
+        kaoqin_info = request.form.to_dict()
+        kaoqin_info['course'] = course
+        # 将数据保存到excel
+        service.save_kaoqin_data(kaoqin_info)
+
+        return kaoqin_info
     return "get请求"

@@ -4,9 +4,6 @@ import pyttsx3
 import json
 
 
-set = setting_utils.read_settings()
-
-
 def voice_read():
     engine = pyttsx3.init()
     engine.setProperty('rate', 150)  # 设置语速

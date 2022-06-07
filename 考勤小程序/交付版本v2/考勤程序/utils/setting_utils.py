@@ -1,7 +1,7 @@
 import re
 
-SETTING_PATH = r"./0-说明文档和配置文档/配置文档.txt"
-
+SETTING_PATH = "0-说明文档和配置文档/配置文档.txt"
+SAVE_FILE = "考勤总表.xlsx"
 
 def read_settings():
     """读取配置文件"""

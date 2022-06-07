@@ -20,6 +20,11 @@ def get_read_file():
         return read_file
 
 
+def get_save_file():
+    save_file = others.get_abspath(settings['save_folder']) + "/" + setting_utils.SAVE_FILE
+    return save_file
+
+
 def read_cs():
     """ 读取科目、班级和学生数据 """
     path = get_read_file()
@@ -27,3 +32,25 @@ def read_cs():
         return
     data = excel_utils.read_excel_cs(path)
     return data
+
+
+def save_kaoqin_data(data):
+    """ 将考勤数据保存到excel """
+    save_file = get_save_file()
+    print(save_file)
+
+
+if __name__ == '__main__':
+    from utils import excel_utils, setting_utils, file_utils, others
+
+    # 读取配置信息
+    settings = setting_utils.read_settings()
+    import os, sys
+    print(os.path.abspath('.'))
+    sys.path.append(os.path.abspath('.'))
+    sys.path.append(os.path.abspath('../0-说明文档和配置文档'))
+    sys.path.append(os.path.abspath('../1-学生名单表'))
+    sys.path.append(os.path.abspath('../2-考勤结果'))
+    sys.path.append(os.path.abspath('../考勤程序'))
+    sys.path.append(os.path.abspath('../考勤程序/utils'))
+    setting_utils.read_settings()
