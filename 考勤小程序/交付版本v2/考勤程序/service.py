@@ -1,7 +1,11 @@
 from utils import excel_utils, setting_utils, file_utils, others
-
+import os
 # 读取配置信息
-settings = setting_utils.read_settings()
+try:
+    settings = setting_utils.read_settings(os.getcwd()+"/0-说明文档和配置文档/配置文档.txt")
+except FileNotFoundError:
+    settings = setting_utils.read_settings(os.path.abspath('..')+"/0-说明文档和配置文档/配置文档.txt")
+
 
 
 def all_situation():
@@ -41,16 +45,5 @@ def save_kaoqin_data(data):
 
 
 if __name__ == '__main__':
-    from utils import excel_utils, setting_utils, file_utils, others
-
-    # 读取配置信息
-    settings = setting_utils.read_settings()
-    import os, sys
-    print(os.path.abspath('.'))
-    sys.path.append(os.path.abspath('.'))
-    sys.path.append(os.path.abspath('../0-说明文档和配置文档'))
-    sys.path.append(os.path.abspath('../1-学生名单表'))
-    sys.path.append(os.path.abspath('../2-考勤结果'))
-    sys.path.append(os.path.abspath('../考勤程序'))
-    sys.path.append(os.path.abspath('../考勤程序/utils'))
-    setting_utils.read_settings()
+    path = os.path.abspath('..')+"/0-说明文档和配置文档/配置文档.txt"
+    print(setting_utils.read_settings(path))

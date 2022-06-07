@@ -1,14 +1,12 @@
+import os.path
 import re
 
 SETTING_PATH = "0-说明文档和配置文档/配置文档.txt"
 SAVE_FILE = "考勤总表.xlsx"
 
-def read_settings():
+def read_settings(path):
     """读取配置文件"""
-    try:
-        f = open(SETTING_PATH, "r", encoding="utf-8")
-    except ModuleNotFoundError:
-        raise Exception(f'没找到"{SETTING_PATH}"这个文件')
+    f = open(path, "r", encoding="utf-8")
     text = f.read()
     f.close()
     # 正则表达式：re
@@ -33,4 +31,5 @@ def read_settings():
 
 
 if __name__ == '__main__':
-    print(read_settings())
+    path = os.path.abspath('../..') + "/0-说明文档和配置文档/配置文档.txt"
+    print(read_settings(path))

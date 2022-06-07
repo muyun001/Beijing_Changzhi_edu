@@ -10,7 +10,7 @@ sys.path.append(os.path.abspath('./考勤程序/utils'))
 from 考勤程序 import server, service
 from 考勤程序.utils import setting_utils, file_utils
 
-settings = setting_utils.read_settings()
+settings = setting_utils.read_settings(os.getcwd()+"/0-说明文档和配置文档/配置文档.txt")
 TO_FILE = "考勤总表.xlsx"
 
 
