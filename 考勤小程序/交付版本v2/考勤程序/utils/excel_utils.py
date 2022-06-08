@@ -1,6 +1,9 @@
-from openpyxl import load_workbook
+import os.path
+import openpyxl
+from openpyxl import load_workbook, Workbook
 import traceback
 import pandas as pd
+import date_utils
 
 
 def read_excel_pandas(file_path):
@@ -37,8 +40,23 @@ def read_excel_cs(file_path):
 
 def save_excel_pandas(data, save_path):
     """将考勤结果保存到excel"""
-    data.to_excel(save_path, index=False)
-    input(f'考勤结果已经保存至【{save_path}】, 请您查收。')
+    # todo 不好用，暂时弃用
+    d = pd.read_excel(save_path, sheet_name=data['course'])
+    kq = []
+    for i in range(len(d)):
+        row = d.iloc[i]
+        cls = row['班级']
+        s = row['名单']
+        if cls == data['class']:
+            key = f"kq-{cls}-{s}"
+            kq.append(data[key])
+        else:
+            kq.append("")
+    d["考勤"] = kq
+
+    writer = pd.ExcelWriter(save_path)
+    d.to_excel(writer, sheet_name=data['course'], index=False)
+    writer.save()
 
 
 def modify_comment(com_str, read_path, save_path=None):
@@ -79,12 +97,39 @@ def read_excel_openpyxl(file_path):
 
 def save_excel_openpyxl(data, save_path):
     """ 使用openpyxl保存数据到excel """
-    # todo
+    from openpyxl.styles import Font
+    # todo 表头
+    wb = openpyxl.load_workbook(save_path)
+    ws = wb[data["course"]]
+    ws.insert_cols(3)  # 将新的一列插入到第3列
+
+    list_ws = list(ws)
+    new_column = list(ws['C'])
+    # 设置标题（20220608周五-L2）
+    title = "{today}{weekday}-{lesson}".format(
+        today=date_utils.get_date(),
+        weekday=date_utils.get_weekday(),
+        lesson=data['lesson']
+    )
+    new_column[0].value = title
+
+    for i in range(1, ws.max_row):
+        excel_cls = list_ws[i][0].value  # 班级
+        excel_s = list_ws[i][1].value  # 学生
+        if excel_cls in list(data["考勤情况"].keys()):
+            kq = data["考勤情况"][excel_cls][excel_s]  # 考勤情况
+            new_column[i].value = kq
+            if kq != "考勤正常":
+                new_column[i].font = Font(color="FF0000")  # 设置字体颜色为红色
+
+    wb.save(save_path)
 
 
 if __name__ == '__main__':
-    file = "../../1-学生名单表/学生名单.xlsx"
-    # print(get_excel_sheets(file))
-    # wb = load_workbook(filename=file)
-    # read_sheet(wb, '语文')
-    print(read_excel_cs(file))
+    data = {'course': '语文', '考勤情况': {
+        '2班': {'侯文杰': '早退', '刘子豪': '早退', '刘洋': '早退', '吕铭': '做核酸', '杨悦昕': '做核酸', '杨智恒': '考勤正常', '杨梓琦': '考勤正常',
+               '白轶臣': '早退', '蒋文拓': '早退', '赵梓豪': '早退', '靳馨娴': '考勤正常', '黄新之': '备赛'}}}
+    path = os.path.abspath('../..') + "/2-考勤结果/考勤总表.xlsx"
+    # save_excel_pandas(data, path)
+    print(path)
+    save_excel_openpyxl(data, path)

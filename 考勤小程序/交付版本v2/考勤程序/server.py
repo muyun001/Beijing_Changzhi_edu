@@ -73,5 +73,5 @@ def submit_kq(course):
         # 将数据保存到excel
         service.save_kaoqin_data(kaoqin_info)
 
-        return kaoqin_info
-    return "get请求"
+        return "<h1>考勤结果保存成功，<a href='/'>点击此处</a>重新进行考勤。</h1>"
+    return "现在是get请求，请求有误，请联系联想班学院处理。"

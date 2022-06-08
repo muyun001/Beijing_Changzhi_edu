@@ -18,11 +18,31 @@
 
 <div style="margin-left:20%;padding:1px 16px;height:1000px;">
     <form action="/submit_kq/{{ data["course"] }}/" method="post">
+        {#   选择第几节课     #}
+        <div>
+            您现在是：
+            <label>
+                <select name="lesson">
+                    <option value="早读">早读</option>
+                    <option value="晨会">晨会</option>
+                    <option value="第1节课">第1节课</option>
+                    <option value="第2节课">第2节课</option>
+                    <option value="课间操">课间操</option>
+                    <option value="第3节课">第3节课</option>
+                    <option value="第4节课">第4节课</option>
+                    <option value="第5节课">第5节课</option>
+                    <option value="第6节课">第6节课</option>
+                    <option value="第7节课">第7节课</option>
+                    <option value="晚自习">晚自习</option>
+                </select>
+            </label>
+        </div>
+        <br>
         {#  班级复选框  #}
         <div id="class_choice">
             请选择班级：
             {% for cls in data["classes"] %}
-                <input type="checkbox" class="c_checkbox" name="class" id="{{ cls }}" value="{{ cls }}"
+                <input type="checkbox" class="c_checkbox" id="{{ cls }}" value="{{ cls }}"
                        onclick="checkboxOnclick(this, '{{ cls }}')">
                 <label for="{{ cls }}">{{ cls }}</label>
             {% endfor %}<br><br>
