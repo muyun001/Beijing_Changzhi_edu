@@ -60,7 +60,8 @@ def kaoqin():
         "course": course,  # 当前请求对课程
         "cs_info": service.read_cs()[course],  # 班级和学生信息
         "kaoqin": service.all_situation(),  # 考勤的所有情况
-        "classes": get_classes(course)["classes"]
+        "classes": get_classes(course)["classes"],
+        "lessons": service.get_lessons()
     }
     return render_template('kaoqin.html', data=data)
 

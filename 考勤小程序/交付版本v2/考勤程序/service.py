@@ -66,6 +66,11 @@ def convert_data(data):
     return result
 
 
+def get_lessons():
+    """ 获取课程情况（有哪几节课） """
+    return settings['lessons'].split('\n')
+
+
 def save_kaoqin_data(data):
     """ 将考勤数据保存到excel """
     data = convert_data(data)
@@ -74,4 +79,4 @@ def save_kaoqin_data(data):
 
 
 if __name__ == '__main__':
-    pass
+    print(get_lessons())

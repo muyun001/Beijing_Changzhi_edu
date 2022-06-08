@@ -23,17 +23,9 @@
             您现在是：
             <label>
                 <select name="lesson">
-                    <option value="早读">早读</option>
-                    <option value="晨会">晨会</option>
-                    <option value="第1节课">第1节课</option>
-                    <option value="第2节课">第2节课</option>
-                    <option value="课间操">课间操</option>
-                    <option value="第3节课">第3节课</option>
-                    <option value="第4节课">第4节课</option>
-                    <option value="第5节课">第5节课</option>
-                    <option value="第6节课">第6节课</option>
-                    <option value="第7节课">第7节课</option>
-                    <option value="晚自习">晚自习</option>
+                    {% for l in data["lessons"] %}
+                        <option value="{{ l }}">{{ l }}</option>
+                    {% endfor %}
                 </select>
             </label>
         </div>
