@@ -113,7 +113,6 @@ def submit_settings():
             if sett[k].replace('\n', "") == sett_[k].replace('\r', "").replace('\n', ""):
                 continue
             # 不同的数据，判断是哪些地方不同
-            # 如果是目录不同，则修改目录名
             # 如果是考勤情形不同，则修改考勤内容
             # 如果是上课情形不同，则修改上课情形
 

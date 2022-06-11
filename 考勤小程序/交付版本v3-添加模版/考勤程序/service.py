@@ -14,8 +14,6 @@ def get_settings():
 
 def update_sett(sett_dict):
     """ 更新设置中key的值 """
-    sett_dict["需要考勤的目录名"] = sett_dict.pop("read_folder")
-    sett_dict["生成考勤结果的目录名"] = sett_dict.pop("save_folder")
     sett_dict["考勤的所有情形"] = sett_dict.pop("kq_situ")
     sett_dict["需要考勤的课程"] = sett_dict.pop("lessons")
     return sett_dict
@@ -28,17 +26,12 @@ def all_situation():
 
 def get_read_file():
     """ 从【1-学生名单表】中获取文件名（包含文件路径） """
-    files = file_utils.get_files(others.get_abspath(get_settings()['read_folder']))
-    for f in files:
-        if not others.is_excel(f):
-            # 如果不是正常excel文件，就继续判断下一个文件
-            continue
-        read_file = f"{others.get_abspath(get_settings()['read_folder'])}/{f}"
-        return read_file
+    read_file = others.get_abspath(file_utils.READ_FILE)
+    return read_file
 
 
 def get_save_file():
-    save_file = others.get_abspath(get_settings()['save_folder']) + "/" + file_utils.SAVE_FILE
+    save_file = others.get_abspath(file_utils.SAVE_FILE)
     return save_file
 
 

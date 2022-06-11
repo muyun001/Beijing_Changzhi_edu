@@ -170,23 +170,13 @@
                                     <fieldset>  <!-- 边框 -->
                                         {#  <legend> Settings</legend>   <!-- 边框上的文字 -->#}
                                         {% for k, v in data['settings'].items() %}
-                                            {% if "read" in k %}
-                                                1. 需要考勤目录名:
-                                                <label>
-                                                    <input type="text" name="{{ k }}" value="{{ v }}">
-                                                </label><br>
-                                            {% elif "save" in k %}
-                                                2. 考勤结果目录名:
-                                                <label>
-                                                    <input type="text" name="{{ k }}" value="{{ v }}">
-                                                </label><br>
-                                            {% elif "kq" in k %}
-                                                <p>3. 所有考勤情形:</p>
+                                            {% if "kq" in k %}
+                                                <p>1. 所有考勤情形:</p>
                                                 <label>
                                                     <textarea name="{{ k }}" value="{{ v }}">{{ v }}</textarea>
                                                 </label>
                                             {% elif "lesson" in k %}
-                                                <p>4. 所有考勤课程:</p>
+                                                <p>2. 所有考勤课程:</p>
                                                 <label>
                                                     <textarea name="{{ k }}" value="{{ v }}">{{ v }}</textarea>
                                                 </label>
