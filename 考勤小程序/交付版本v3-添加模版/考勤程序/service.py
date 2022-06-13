@@ -1,4 +1,4 @@
-from utils import excel_utils, file_utils, others
+from utils import file_utils, others
 import os
 
 
@@ -40,8 +40,13 @@ def read_cs():
     path = get_read_file()
     if not path:
         return
-    data = excel_utils.read_excel_cs(path)
+    data = file_utils.read_excel_cs(path)
     return data
+
+
+def read_result_excel():
+    """ 读取"考勤总表"数据，需要后续进行分析 """
+    pass
 
 
 def convert_data(data):
@@ -90,7 +95,7 @@ def save_kaoqin_data(data):
     """ 将考勤数据保存到excel """
     data = convert_data(data)
     save_file = get_save_file()
-    excel_utils.save_excel_openpyxl(data, save_file)
+    file_utils.save_excel_openpyxl(data, save_file)
 
 
 def save_setting(old_str, new_str):
