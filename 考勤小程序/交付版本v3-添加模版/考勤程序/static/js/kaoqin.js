@@ -1,4 +1,5 @@
 /*globals $:false */
+
 // 选择班级的复选框的点击事件
 function checkboxOnclick(checkbox, cls) {
     "use strict";
@@ -51,4 +52,7 @@ function remove_students(cls) {
     }
 }
 
-
+function submitClick(s) {
+    "use strict";
+    window.alert(s);
+}

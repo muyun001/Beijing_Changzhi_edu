@@ -85,7 +85,7 @@ def kaoqin():
         "classes": get_classes(course)["classes"],
         "lessons": service.get_lessons()
     }
-    return render_template('kaoqin2.html', data=data)
+    return render_template('kaoqin.html', data=data)
 
 
 @app.route('/submit_kq/<course>/', methods=['GET', "POST"])
@@ -96,25 +96,31 @@ def submit_kq(course):
         kaoqin_info['course'] = course
         # 将数据保存到excel
         service.save_kaoqin_data(kaoqin_info)
-        return """<script>alert("数据保存成功！")</script>"""
+        return redirect(url_for('kaoqin'))
     return """<script>alert("现在是get请求，请求有误，请联系联想班学员处理。")</script>"""
 
 
 @app.route("/settings/", methods=["POST"])
 def submit_settings():
     """ 接收提交的配置信息，并保存到配置文件中 """
-    sett = service.get_settings()  # 读取配置，方便后面做对比
+    old_sett = service.get_settings()  # 读取原配置，方便后面做对比
     if request.method == "POST":
-        sett_ = request.form.to_dict()
+        new_sett = request.form.to_dict()
         # 判断原设置数据和提交上来的配置数据是否相同
         # 如果不同，则按照提交配置进行更改
-        for k, v in sett_.items():
+        for k, v in new_sett.items():
             # 如果配置相同，则无需更改，跳过
-            if sett[k].replace('\n', "") == sett_[k].replace('\r', "").replace('\n', ""):
+            if old_sett[k].replace('\n', "") == new_sett[k].replace('\r', "").replace('\n', ""):
                 continue
             # 不同的数据，判断是哪些地方不同
             # 如果是考勤情形不同，则修改考勤内容
             # 如果是上课情形不同，则修改上课情形
-
-        print(sett)
+            service.save_setting(old_sett[k], v)
     return redirect(url_for('hello'))
+
+
+@app.route('/kq_analyse/')
+def kq_analyse():
+    """ 考勤分析 """
+
+    return render_template('kq_analyse.html')

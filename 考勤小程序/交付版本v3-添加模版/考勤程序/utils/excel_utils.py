@@ -98,7 +98,10 @@ def read_excel_openpyxl(file_path):
 def save_excel_openpyxl(data, save_path):
     """ 使用openpyxl保存数据到excel """
     from openpyxl.styles import Font
-    wb = openpyxl.load_workbook(save_path)
+    try:
+        wb = openpyxl.load_workbook(save_path)
+    except Exception as e:
+        print(e)
     ws = wb[data["course"]]
     ws.insert_cols(3)  # 将新的一列插入到第3列
 

@@ -93,5 +93,11 @@ def save_kaoqin_data(data):
     excel_utils.save_excel_openpyxl(data, save_file)
 
 
+def save_setting(old_str, new_str):
+    """ 保存修改 """
+    new_str = new_str.replace("\r", "")
+    file_utils.save_setting(old_str, new_str)
+
+
 if __name__ == '__main__':
     print(get_desc())

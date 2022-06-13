@@ -23,11 +23,11 @@
     <link rel="stylesheet" href="../static/css/style.css">
     <script type="text/javascript" src="../static/js/kaoqin.js"></script>
     {#    <link rel="stylesheet" type="text/css" href="../static/css/考勤页面.css">#}
-    <title>Snap &mdash; Free Photography Website Template by Untree.co</title>
+    <title>联想未来班 - 考勤程序</title>
     <style>
         textarea {
             min-width: 300px;
-            min-height: 300px;
+            min-height: 290px;
         }
     </style>
 </head>
@@ -63,7 +63,7 @@
                 <li><a href="#section-analysis" class="nav-link">考勤分析</a></li>
                 <li><a href="#section-settings" class="nav-link">功能配置</a></li>
                 <li><a href="#section-description" class="nav-link">使用说明</a></li>
-                {#                <li><a href="#section-description" class="nav-link"></a></li>#}
+                {# <li><a href="#section-description" class="nav-link"></a></li> #}
                 <li><a href="#section-photos" class="nav-link">班级风采</a></li>
             </ul>
             <ul class="social js-clone-nav">
@@ -101,7 +101,6 @@
                 {# 标题：开始考勤 #}
                 <div class="col-12 text-center">
                     <h2 class="heading">开始考勤</h2>
-                    {#                    <h2 class="heading">START</h2>#}
                 </div>
                 <div class="col-12">
                     <div class="row align-items-stretch">
@@ -184,7 +183,7 @@
                                         {% endfor %}
                                         <br>
                                         <div align="center">
-                                            <button type="submit" class="animate__animated animate__rotateIn">提 交
+                                            <button type="submit" onclick="submitClick('配置数据保存成功！')"  class="animate__animated animate__rotateIn">提 交
                                             </button>
                                         </div>
                                     </fieldset>

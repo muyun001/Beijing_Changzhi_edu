@@ -9,7 +9,7 @@ SAVE_FILE = "2-考勤结果/考勤总表.xlsx"
 
 def read_settings(path):
     """读取配置文件"""
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, "r",errors="ignore") as f:
         text = f.read()
     kq_situations = re.findall("""考勤的所有情形：\n(.*?)\n注意""", text, re.S)
     lesson = re.findall("需要考勤的课程：\n(.*?)\n注意", text, re.S)
@@ -40,11 +40,32 @@ def copy_file(source_file, to_file):
     shutil.copy(source_file, to_file)
 
 
+def save_setting(old_str, new_str):
+    """ 保存配置的修改 """
+    import others
+    file = others.get_abspath(SETTING_PATH)
+    with open(file, "r+", errors="ignore", encoding="utf-8") as f:
+        text = f.read()
+        s = text.replace(old_str, new_str)
+        f.seek(0)
+        f.write(s)
+
+
 if __name__ == '__main__':
-    path = "../../0-说明文档和配置文档/说明文档.txt"
-    # print(get_files(path))
-    # r = read_description(path)
-    # print(r)
     path = "../../0-说明文档和配置文档/配置文档.txt"
-    r = read_settings(path)
-    print(r)
+    old_str = """1、考勤正常
+2、请假
+3、迟到
+4、早退
+5、旷课
+6、做核酸
+7、备赛
+8、参加学校活动/任务
+9、其他情况"""
+    new_str = """4、早退
+5、旷课
+6、做核酸
+7、备赛
+8、参加学校活动/任务
+9、其他情况"""
+    save_setting(path, old_str, new_str)
