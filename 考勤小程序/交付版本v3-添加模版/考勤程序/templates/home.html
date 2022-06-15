@@ -23,13 +23,19 @@
     <link rel="stylesheet" href="../static/css/style.css">
     <script type="text/javascript" src="../static/js/kaoqin.js"></script>
     {#    <link rel="stylesheet" type="text/css" href="../static/css/考勤页面.css">#}
-    <title>联想未来班 - 考勤程序</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <title>联想未来班 - 小程序</title>
     <style>
         textarea {
             min-width: 300px;
             min-height: 290px;
         }
     </style>
+    <script>
+        function submitClick(s) {
+            alert(s)
+        }
+    </script>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="200">
 
@@ -60,11 +66,10 @@
             <ul class="js-clone-nav">
                 <li><a href="#section-home" class="nav-link">主页</a></li>
                 <li><a href="#section-attendance" class="nav-link">开始考勤</a></li>
-                <li><a href="#section-analysis" class="nav-link">考勤分析</a></li>
-                <li><a href="#section-settings" class="nav-link">功能配置</a></li>
+                {#                <li><a href="#section-analysis" class="nav-link">考勤分析</a></li>#}
                 <li><a href="#section-description" class="nav-link">使用说明</a></li>
-                {# <li><a href="#section-description" class="nav-link"></a></li> #}
                 <li><a href="#section-photos" class="nav-link">班级风采</a></li>
+                <li><a href="#section-settings" class="nav-link">功能配置</a></li>
             </ul>
             <ul class="social js-clone-nav">
                 <li><a href="#"><span class="icon-instagram"></span></a></li>
@@ -127,72 +132,37 @@
             <br/>
             <br/>
 
+
+            {#            <br/>#}
+            {#            <br/>#}
+            {#            <br/>#}
+            {#            <br/>#}
+            {#            <br/>#}
+            {#            <br/>#}
+            {##}
             {# 考勤分析 #}
             {#                        <section class="site-section" id="section-analysis">#}
-            <section class="row align-items-stretch" id="section-analysis">
-                <div class="col-12 text-center">
-                    {#                    <h2 class="heading">ATTENDANCE-ANALYSIS</h2>#}
-                    <h2 class="heading">考勤分析</h2>
-                </div>
-
-                <div class="container">
-                    <div class="row justify-content-center">
-
-                        <div class="col-md-8">
-
-                            <div data-aos="fade-up" data-aos-delay="100">
-                                <h2 class="">正在抓紧开发中...</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            {# 配置 #}
-            {#                        <section class="site-section" id="section-settings">#}
-            <section class="row align-items-stretch" id="section-settings">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div>
-                            <div class="col-12 text-center">
-                                <h2 class="heading">功能配置</h2>
-                            </div>
-                            <span style="color: red">下列配置都已默认配置好，若无必要可以不修改哦 ^_^</span>
-                            <form action="/settings/" method="post">
-                                <div>
-                                    <fieldset>  <!-- 边框 -->
-                                        {#  <legend> Settings</legend>   <!-- 边框上的文字 -->#}
-                                        {% for k, v in data['settings'].items() %}
-                                            {% if "kq" in k %}
-                                                <p>1. 所有考勤情形:</p>
-                                                <label>
-                                                    <textarea name="{{ k }}" value="{{ v }}">{{ v }}</textarea>
-                                                </label>
-                                            {% elif "lesson" in k %}
-                                                <p>2. 所有考勤课程:</p>
-                                                <label>
-                                                    <textarea name="{{ k }}" value="{{ v }}">{{ v }}</textarea>
-                                                </label>
-                                            {% endif %}
-                                        {% endfor %}
-                                        <br>
-                                        <div align="center">
-                                            <button type="submit" onclick="submitClick('配置数据保存成功！')"  class="animate__animated animate__rotateIn">提 交
-                                            </button>
-                                        </div>
-                                    </fieldset>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            {#            <section class="row align-items-stretch" id="section-analysis">#}
+            {#                <div class="col-12 text-center">#}
+            {#                    <h2 class="heading">ATTENDANCE-ANALYSIS</h2>#}
+            {#                    <h2 class="heading">考勤分析</h2>#}
+            {#                </div>#}
+            {##}
+            {#                <div class="container">#}
+            {#                    <div class="row justify-content-center">#}
+            {##}
+            {#                        <div class="col-md-8">#}
+            {##}
+            {#                            <div data-aos="fade-up" data-aos-delay="100">#}
+            {#                                <h2 class="">正在抓紧开发中...</h2>#}
+            {#                                <iframe src="/kq_analyse/" id="kq_analyse" width="90%" height="300" frameborder="0"#}
+            {#                                        scrolling="auto">#}
+            {#                                </iframe>#}
+            {#                            </div>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {#            </section>#}
 
             <br/>
             <br/>
@@ -200,6 +170,7 @@
             <br/>
             <br/>
             <br/>
+
             {# 说明文档 #}
             <section class="row align-items-stretch" id="section-description">
                 {# 标题 #}
@@ -219,6 +190,7 @@
                     </div>
                 </div>
             </section>
+
 
             <br/>
             <br/>
@@ -252,15 +224,11 @@
                             <div class="mr-md-auto mr-2">
                                 <ul class="ul-check list-unstyled primary">
                                     <li>打印服务</li>
-                                    <li>Inventore sapiente tenetur</li>
-                                    <li>Ipsam aliquam esse</li>
+                                    <li>小程序开发</li>
                                 </ul>
                             </div>
                             <div class="mr-md-auto">
                                 <ul class="ul-check list-unstyled primary">
-                                    <li>Optio eveniet ex laborum</li>
-                                    <li>Inventore sapiente tenetur</li>
-                                    <li>Ipsam aliquam esse</li>
                                 </ul>
                             </div>
                         </div>
@@ -393,6 +361,55 @@
                     </div>
                 </div>
             </section> <!-- #section-photos -->
+
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            {# 配置 #}
+            {#                        <section class="site-section" id="section-settings">#}
+            <section class="row align-items-stretch" id="section-settings">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div>
+                            <div class="col-12 text-center">
+                                <h2 class="heading">功能配置</h2>
+                            </div>
+                            <span style="color: red">下列配置都已默认配置好，若无必要可以不修改哦 ^_^</span>
+                            <form action="/settings/" method="post">
+                                <div>
+                                    <fieldset>  <!-- 边框 -->
+                                        {#  <legend> Settings</legend>   <!-- 边框上的文字 -->#}
+                                        {% for k, v in data['settings'].items() %}
+                                            {% if "kq" in k %}
+                                                <p>1. 所有考勤情形:</p>
+                                                <label>
+                                                    <textarea name="{{ k }}" value="{{ v }}">{{ v }}</textarea>
+                                                </label>
+                                            {% elif "lesson" in k %}
+                                                <p>2. 所有考勤课程:</p>
+                                                <label>
+                                                    <textarea name="{{ k }}" value="{{ v }}">{{ v }}</textarea>
+                                                </label>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <br>
+                                        <div align="center">
+                                            <button type="submit" onclick="submitClick('配置数据保存成功！')"
+                                                    class="animate__animated animate__rotateIn">提 交
+                                            </button>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             {# 最下面的标签 #}
             <div class="row justify-content-center">
