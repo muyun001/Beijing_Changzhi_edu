@@ -93,7 +93,7 @@
                             <td align="center">{{ s }}</td>
                             <td align="center">
                                 <label>
-                                    <select>
+                                    <select name="kq-{{ cls }}-{{ s }}">
                                         {% for y in data["kaoqin"].values() %}
                                             <option value="{{ y }}">{{ y }}</option>
                                         {% endfor %}
