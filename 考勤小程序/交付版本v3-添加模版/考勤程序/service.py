@@ -104,5 +104,15 @@ def save_setting(old_str, new_str):
     file_utils.save_setting(old_str, new_str)
 
 
+def get_imgs(type="cls"):
+    """ 获取图片,cls类型是获取班级图片，否则获取学生图片 """
+    if type == "cls":
+        folder = "考勤程序/static/images/cls_imgs"
+        return file_utils.get_files(folder)
+    else:
+        folder = "考勤程序/static/images/student_imgs"
+        return file_utils.get_files(folder)
+
+
 if __name__ == '__main__':
     print(get_desc())

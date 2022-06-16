@@ -63,10 +63,10 @@ def home():
         "classes": get_classes(course)["classes"],
         "lessons": service.get_lessons(),
         "description": service.get_desc(),
-        "settings": service.get_settings()
+        "settings": service.get_settings(),
+        "cls_imgs": service.get_imgs()
     }
     return render_template('home.html', data=data)
-    # return render_template('home_no_iframe.html', data=data)
 
 
 @app.route('/kaoqin/')

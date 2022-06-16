@@ -208,7 +208,7 @@
 
                 {# 介绍 #}
                 <div class="col-md-8">
-                    <img src="../static/images/lenovo_8.jpeg" alt="Image"
+                    <img src="../static/images/cls_imgs/lenovo_8.jpeg" alt="Image"
                          class="img-fluid mb-4 w-50 rounded-circle">
                     <div data-aos="fade-up" data-aos-delay="100">
                         <h2 class="">Hi 我们是联想未来班</h2>
@@ -229,6 +229,8 @@
                             </div>
                             <div class="mr-md-auto">
                                 <ul class="ul-check list-unstyled primary">
+                                    {#                                    <li>打印服务</li>#}
+                                    {#                                    <li>小程序开发</li>#}
                                 </ul>
                             </div>
                         </div>
@@ -286,78 +288,18 @@
                 {# 图片 #}
                 <div class="col-12">
                     <div class="row align-items-stretch">
-                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up">
-                            <a href="../static/images/lenovo_1.jpeg" class="d-block photo-item"
-                               data-fancybox="gallery">
-                                <img src="../static/images/lenovo_1.jpeg" alt="Image" class="img-fluid mb-0">
-                                <div class="photo-text-more">
-                                    <span class="icon icon-eye"></span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                            <a href="../static/images/lenovo_2.jpeg" class="d-block photo-item"
-                               data-fancybox="gallery">
-                                <img src="../static/images/lenovo_2.jpeg" alt="Image" class="img-fluid mb-0">
-                                <div class="photo-text-more">
-                                    <span class="icon icon-eye"></span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up">
-                            <a href="../static/images/lenovo_4.jpeg" class="d-block photo-item"
-                               data-fancybox="gallery">
-                                <img src="../static/images/lenovo_4.jpeg" alt="Image" class="img-fluid mb-0">
-                                <div class="photo-text-more">
-                                    <span class="icon icon-eye"></span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-s-delay="200">
-                            <a href="../static/images/lenovo_6.jpeg" class="d-block photo-item"
-                               data-fancybox="gallery">
-                                <img src="../static/images/lenovo_6.jpeg" alt="Image" class="img-fluid mb-0">
-                                <div class="photo-text-more">
-                                    <span class="icon icon-eye"></span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up">
-                            <a href="../static/images/lenovo_7.jpeg" class="d-block photo-item"
-                               data-fancybox="gallery">
-                                <img src="../static/images/lenovo_7.jpeg" alt="Image" class="img-fluid mb-0">
-                                <div class="photo-text-more">
-                                    <span class="icon icon-eye"></span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                            <a href="../static/images/lenovo_8.jpeg" class="d-block photo-item"
-                               data-fancybox="gallery">
-                                <img src="../static/images/lenovo_8.jpeg" alt="Image" class="img-fluid mb-0">
-                                <div class="photo-text-more">
-                                    <span class="icon icon-eye"></span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                            <a href="../static/images/lenovo_9.jpeg" class="d-block photo-item"
-                               data-fancybox="gallery">
-                                <img src="../static/images/lenovo_9.jpeg" alt="Image" class="img-fluid mb-0">
-                                <div class="photo-text-more">
-                                    <span class="icon icon-eye"></span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up">
-                            <a href="../static/images/lenovo_10.jpeg" class="d-block photo-item"
-                               data-fancybox="gallery">
-                                <img src="../static/images/lenovo_10.jpeg" alt="Image" class="img-fluid mb-0">
-                                <div class="photo-text-more">
-                                    <span class="icon icon-eye"></span>
-                                </div>
-                            </a>
-                        </div>
+                        {% for img in data['cls_imgs'] %}
+                            <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up">
+                                <a href="../static/images/cls_imgs/{{ img }}" class="d-block photo-item"
+                                   data-fancybox="gallery">
+                                    <img src="../static/images/cls_imgs/{{ img }}" alt="Image" class="img-fluid mb-0">
+                                    <div class="photo-text-more">
+                                        <span class="icon icon-eye"></span>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+
                     </div>
                 </div>
             </section> <!-- #section-photos -->
