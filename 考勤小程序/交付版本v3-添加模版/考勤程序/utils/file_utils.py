@@ -13,7 +13,7 @@ READ_FILE = "1-学生名单表/学生名单.xlsx"
 SAVE_FILE = "2-考勤结果/考勤总表.xlsx"
 
 
-def read_settings(path):
+def read_settings(path) -> dict:
     """读取配置文件"""
     with open(path, "r", errors="ignore") as f:
         text = f.read()
@@ -89,6 +89,64 @@ def read_excel_cs(file_path):
     return course_info
 
 
+def read_excel_all_data(file_path):
+    """
+    读取excel中的所有数据
+    返回值结构：
+    {
+        "语文": {
+            "1班": {
+                "崔昊元":{
+                    "20220613周一-第4节课":"考勤正常",
+                    "20220611周六-早读":"迟到",
+                    ...
+                    },
+                "贾靖程":{
+                    "20220613周一-第4节课":"考勤正常",
+                    "20220611周六-早读":"迟到",
+                    ...
+                    },
+            },
+            "2班": {
+                ...
+            },
+        },
+        "政治":{
+        ...
+        }
+    }
+    """
+    sheets = get_excel_sheets(file_path)
+    result = {}  # 用于返回的结果
+    for s in sheets:
+        try:
+            data = pd.read_excel(file_path, sheet_name=s)
+        except ValueError:
+            traceback.print_exc()
+            raise Exception("您的excel表格中可能没有数据，请您核验一下。")
+        data = data.fillna(-1)  # 将空的地方都填上-1
+        titles = list(data)  # 获取所有的列名
+        classes, students = list(data['班级']), list(data['名单'])
+        cls_dict, personal_kq_situation = {}, {}  # 班级字典、个人考勤情况
+        # 写成这种格式：{"一班":{}, "二班":{}, "三班":{}}
+        for c in set(classes):
+            cls_dict[c] = {}
+        # 对行进行遍历
+        for i in range(len(data)):
+            row = data.iloc[i]
+            cls = row["班级"]  # 班级
+            student = row['名单']
+            personal_kq_situation = {}  # 个人考勤情况
+            # 去除班级和名单后，进行遍历
+            for title in titles[2:]:
+                kq_situation = row[title]
+                personal_kq_situation[title] = kq_situation
+            cls_dict[cls][student] = personal_kq_situation
+
+        result[s] = cls_dict
+    return result
+
+
 def save_excel_pandas(data, save_path):
     """将考勤结果保存到excel"""
     # todo 不好用，暂时弃用
@@ -156,7 +214,6 @@ def save_excel_openpyxl(data, save_path):
     ws = wb[data["course"]]
     ws.insert_cols(3)  # 将新的一列插入到第3列
 
-    list_ws = list(ws)
     new_column = list(ws['C'])
     # 设置标题（20220608周五-L2）
     title = "{today}{weekday}-{lesson}".format(
@@ -166,6 +223,7 @@ def save_excel_openpyxl(data, save_path):
     )
     new_column[0].value = title
 
+    list_ws = list(ws)
     for i in range(1, ws.max_row):
         excel_cls = list_ws[i][0].value  # 班级
         excel_s = list_ws[i][1].value  # 学生
@@ -179,20 +237,7 @@ def save_excel_openpyxl(data, save_path):
 
 
 if __name__ == '__main__':
-    path = "../../0-说明文档和配置文档/配置文档.txt"
-    old_str = """1、考勤正常
-2、请假
-3、迟到
-4、早退
-5、旷课
-6、做核酸
-7、备赛
-8、参加学校活动/任务
-9、其他情况"""
-    new_str = """4、早退
-5、旷课
-6、做核酸
-7、备赛
-8、参加学校活动/任务
-9、其他情况"""
-    save_setting(path, old_str, new_str)
+    # path = "../../0-说明文档和配置文档/配置文档.txt"
+    path = "../../2-考勤结果/考勤总表.xlsx"
+    r = read_excel_all_data(path)
+    print(r)

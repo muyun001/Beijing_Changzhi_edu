@@ -24,7 +24,7 @@ def all_situation():
     return others.str_to_dict(get_settings()['kq_situ'])
 
 
-def get_read_file():
+def get_read_file() -> int:
     """ 从【1-学生名单表】中获取文件名（包含文件路径） """
     read_file = others.get_abspath(file_utils.READ_FILE)
     return read_file
