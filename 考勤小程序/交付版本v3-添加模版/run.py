@@ -12,6 +12,7 @@ from 考勤程序.utils import file_utils
 
 settings = file_utils.read_settings(os.getcwd() + "/0-说明文档和配置文档/配置文档.txt")
 
+
 def init():
     """ 初始化:复制文件 """
     source_file = service.get_read_file()

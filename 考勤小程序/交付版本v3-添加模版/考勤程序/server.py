@@ -119,6 +119,12 @@ def submit_settings():
     return redirect(url_for('hello'))
 
 
+@app.route('/random_choice/')
+def random_choice():
+    """ 随机点名 """
+    pass
+
+
 @app.route('/kq_analyse/')
 def kq_analyse():
     """ 考勤分析 """

@@ -66,7 +66,7 @@
             <ul class="js-clone-nav">
                 <li><a href="#section-home" class="nav-link">主页</a></li>
                 <li><a href="#section-attendance" class="nav-link">开始考勤</a></li>
-                {#                <li><a href="#section-analysis" class="nav-link">考勤分析</a></li>#}
+                <li><a href="#section-random_choice" class="nav-link">随机点名</a></li>
                 <li><a href="#section-description" class="nav-link">使用说明</a></li>
                 <li><a href="#section-photos" class="nav-link">班级风采</a></li>
                 <li><a href="#section-settings" class="nav-link">功能配置</a></li>
@@ -132,37 +132,29 @@
             <br/>
             <br/>
 
-
-            {#            <br/>#}
-            {#            <br/>#}
-            {#            <br/>#}
-            {#            <br/>#}
-            {#            <br/>#}
-            {#            <br/>#}
-            {##}
-            {# 考勤分析 #}
-            {#                        <section class="site-section" id="section-analysis">#}
-            {#            <section class="row align-items-stretch" id="section-analysis">#}
-            {#                <div class="col-12 text-center">#}
-            {#                    <h2 class="heading">ATTENDANCE-ANALYSIS</h2>#}
-            {#                    <h2 class="heading">考勤分析</h2>#}
-            {#                </div>#}
-            {##}
-            {#                <div class="container">#}
-            {#                    <div class="row justify-content-center">#}
-            {##}
-            {#                        <div class="col-md-8">#}
-            {##}
-            {#                            <div data-aos="fade-up" data-aos-delay="100">#}
-            {#                                <h2 class="">正在抓紧开发中...</h2>#}
-            {#                                <iframe src="/kq_analyse/" id="kq_analyse" width="90%" height="300" frameborder="0"#}
-            {#                                        scrolling="auto">#}
-            {#                                </iframe>#}
-            {#                            </div>#}
-            {#                        </div>#}
-            {#                    </div>#}
-            {#                </div>#}
-            {#            </section>#}
+            {# 随机点名 #}
+            <section class="row align-items-stretch" id="section-random_choice">
+                {# 标题：开始考勤 #}
+                <div class="col-12 text-center">
+                    <h2 class="heading">随机点名</h2>
+                </div>
+                <div class="col-12">
+                    <div class="row align-items-stretch">
+                        {# 考勤页面 #}
+                        {#                        <iframe src="/kaoqin/" name="kaoqin" width="900" height="1100" scrolling="no"></iframe>#}
+                        <iframe src="/kaoqin/" id="choice" width="90%" height="300" frameborder="0"
+                                scrolling="auto"></iframe>
+                        <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+                        <script>
+                            <!-- iframe自适应高度 -->
+                            $("#choice").load(function () {
+                                var mainheight = $(this).contents().find("body").height() + 30;
+                                $(this).height(mainheight);
+                            });
+                        </script>
+                    </div>
+                </div>
+            </section> <!-- #section-attendance -->
 
             <br/>
             <br/>
@@ -208,15 +200,15 @@
 
                 {# 介绍 #}
                 <div class="col-md-8">
-                    <img src="../static/images/cls_imgs/lenovo_8.jpeg" alt="Image"
+                    <img src="../static/images/cls_imgs/lenovo_15.jpg" alt="Image"
                          class="img-fluid mb-4 w-50 rounded-circle">
                     <div data-aos="fade-up" data-aos-delay="100">
                         <h2 class="">Hi 我们是联想未来班</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolor aperiam a
                             velit.
-                            Harum eligendi quod reiciendis quos ullam libero est dolor, <span style="color:
-                                        red">corporis
-                                        dolores assumenda</span>, delectus, quidem voluptatibus dolorum temporibus enim!
+                            Harum eligendi quod reiciendis quos ullam libero est dolor,
+                            <span style="color:red">corporis dolores assumenda</span>,
+                            delectus, quidem voluptatibus dolorum temporibus enim!
                         </p>
                         <h3 class=" mt-5">Services</h3>
 
