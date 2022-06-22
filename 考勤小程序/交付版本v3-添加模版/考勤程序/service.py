@@ -26,12 +26,12 @@ def all_situation():
 
 def get_read_file() -> int:
     """ 从【1-学生名单表】中获取文件名（包含文件路径） """
-    read_file = others.get_abspath(file_utils.READ_FILE)
+    read_file = others.get_abspath(file_utils.FILE_READ)
     return read_file
 
 
 def get_save_file():
-    save_file = others.get_abspath(file_utils.SAVE_FILE)
+    save_file = others.get_abspath(file_utils.FILE_SAVE)
     return save_file
 
 
@@ -110,8 +110,19 @@ def get_imgs(type="cls"):
         folder = "考勤程序/static/images/cls_imgs"
         return file_utils.get_files(folder)
     else:
+        stu_img_dict = {}
         folder = "考勤程序/static/images/student_imgs"
-        return file_utils.get_files(folder)
+        imgs = file_utils.get_files(folder)
+        for i in imgs:
+            name = i.split(".")[0]
+            stu_img_dict[name] = i
+
+        return stu_img_dict
+
+
+def read_students_introduction():
+    """ 读取学生介绍 """
+    return file_utils.read_student_introduction()
 
 
 if __name__ == '__main__':

@@ -2,13 +2,7 @@ from flask import Flask, redirect, request, render_template, url_for
 import service
 
 app = Flask(__name__)
-# 解决flask接口中文数据编码问题
-app.config['JSON_AS_ASCII'] = False
-
-
-@app.route('/')
-def hello():
-    return redirect(url_for("home"))
+app.config['JSON_AS_ASCII'] = False  # 解决flask接口中文数据编码问题
 
 
 @app.route('/get_courses/')
@@ -47,6 +41,7 @@ def get_cls_students(cls):
     return data
 
 
+@app.route('/')
 @app.route('/home/')
 def home():
     """ 主页 """
@@ -60,11 +55,13 @@ def home():
         "course": course,  # 当前请求对课程
         "cs_info": service.read_cs()[course],  # 班级和学生信息
         "kaoqin": service.all_situation(),  # 考勤的所有情况
-        "classes": get_classes(course)["classes"],
-        "lessons": service.get_lessons(),
-        "description": service.get_desc(),
-        "settings": service.get_settings(),
-        "cls_imgs": service.get_imgs()
+        "classes": get_classes(course)["classes"],  # 班级
+        "lessons": service.get_lessons(),  # 课程信息
+        "description": service.get_desc(),  # 设置文件中的"介绍信息"
+        "settings": service.get_settings(),  # 读取设置信息
+        "cls_imgs": service.get_imgs(),  # 班级图片
+        "stu_img_dict": service.get_imgs("student"),  # 学生的图片
+        "student_intro_dict": service.read_students_introduction()  # 学生的简介
     }
     return render_template('home.html', data=data)
 
@@ -116,17 +113,24 @@ def submit_settings():
             # 如果是考勤情形不同，则修改考勤内容
             # 如果是上课情形不同，则修改上课情形
             service.save_setting(old_sett[k], v)
-    return redirect(url_for('hello'))
+    return redirect(url_for('home'))
 
 
 @app.route('/random_choice/')
 def random_choice():
     """ 随机点名 """
-    pass
+    # todo 未完成
+    course = request.args.get("course")
+    courses = get_courses().get('courses')  # 获取所有科目
+    if not course:
+        course = courses[0]
 
-
-@app.route('/kq_analyse/')
-def kq_analyse():
-    """ 考勤分析 """
-
-    return render_template('kq_analyse.html')
+    data = {
+        "courses": courses,  # 所有课程
+        "course": course,  # 当前请求的课程
+        "cs_info": service.read_cs()[course],  # 班级和学生信息
+        "kaoqin": service.all_situation(),  # 考勤的所有情况
+        "classes": get_classes(course)["classes"],
+        "lessons": service.get_lessons()
+    }
+    return render_template('random_choice.html', data=data)

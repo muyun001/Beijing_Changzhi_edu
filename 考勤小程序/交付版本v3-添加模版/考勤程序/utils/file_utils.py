@@ -8,9 +8,10 @@ import traceback
 import pandas as pd
 import date_utils
 
-SETTING_PATH = "0-说明文档和配置文档/配置文档.txt"
-READ_FILE = "1-学生名单表/学生名单.xlsx"
-SAVE_FILE = "2-考勤结果/考勤总表.xlsx"
+FILE_SETTING = "0-说明文档和配置文档/配置文档.txt"
+FILE_READ = "1-学生名单表/学生名单.xlsx"
+FILE_SAVE = "2-考勤结果/考勤总表.xlsx"
+FILE_STUDENT_INTRODUCTION = "考勤程序/static/students_introduction.json"
 
 
 def read_settings(path) -> dict:
@@ -49,7 +50,7 @@ def copy_file(source_file, to_file):
 def save_setting(old_str, new_str):
     """ 保存配置的修改 """
     import others
-    file = others.get_abspath(SETTING_PATH)
+    file = others.get_abspath(FILE_SETTING)
     with open(file, "r+", errors="ignore", encoding="utf-8") as f:
         text = f.read()
         s = text.replace(old_str, new_str)
@@ -214,26 +215,33 @@ def save_excel_openpyxl(data, save_path):
     ws = wb[data["course"]]
     ws.insert_cols(3)  # 将新的一列插入到第3列
 
-    new_column = list(ws['C'])
     # 设置标题（20220608周五-L2）
     title = "{today}{weekday}-{lesson}".format(
         today=date_utils.get_date(),
         weekday=date_utils.get_weekday(),
         lesson=data['lesson']
     )
-    new_column[0].value = title
 
-    list_ws = list(ws)
-    for i in range(1, ws.max_row):
-        excel_cls = list_ws[i][0].value  # 班级
-        excel_s = list_ws[i][1].value  # 学生
+    for row in list(ws):
+        excel_cls = row[0].value  # 班级
+        excel_s = row[1].value  # 学生
+        if excel_cls == "班级":
+            row[2].value = title
+
         if excel_cls in list(data["考勤情况"].keys()):
             kq = data["考勤情况"][excel_cls][excel_s]  # 考勤情况
-            new_column[i].value = kq
+            row[2].value = kq  # 插入数据
             if kq != "考勤正常":
-                new_column[i].font = Font(color="FF0000")  # 设置字体颜色为红色
+                row[2].font = Font(color="FF0000")  # 设置字体颜色为红色
 
     wb.save(save_path)
+
+
+def read_student_introduction():
+    """ 读取学生 """
+    import json
+    with open(FILE_STUDENT_INTRODUCTION, 'r', encoding='utf8') as fp:
+        return json.load(fp)
 
 
 if __name__ == '__main__':

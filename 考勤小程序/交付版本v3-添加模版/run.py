@@ -16,8 +16,8 @@ settings = file_utils.read_settings(os.getcwd() + "/0-说明文档和配置文�
 def init():
     """ 初始化:复制文件 """
     source_file = service.get_read_file()
-    if not os.path.exists(file_utils.SAVE_FILE):
-        file_utils.copy_file(source_file, file_utils.SAVE_FILE)
+    if not os.path.exists(file_utils.FILE_SAVE):
+        file_utils.copy_file(source_file, file_utils.FILE_SAVE)
 
 
 if __name__ == '__main__':
